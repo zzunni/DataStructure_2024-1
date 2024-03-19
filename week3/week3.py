@@ -4,11 +4,6 @@ class Node:
         self.item = item
         self.link = link
 
-a = Node('사과')
-print(a)
-print(a.item)
-print(a.link)
-
 class LinkedList:
 
     def __init__(self, item=None):
@@ -28,31 +23,30 @@ class LinkedList:
         while curNode.link != None:
             print(curNode.item, end="->")
             curNode = curNode.link
-            print(curNode.item)
+        print(curNode.item)
 
     def find(self, item):
         num = 1
         curNode = self.root
-        while curNode.link != None:
-
-            if curNode.item == item:
-                print(curNode.link)
-                print(num)
-                break
-            else:
+        if curNode.item == item:
+            return num
+        else:
+             while curNode.link != None:
                 curNode = curNode.link
                 num += 1
+                if curNode.item == item:
+                    return num
 
-        curNode.link = Node(item)
+        return -1
 
     # 순서가 증가할수록 값을 1씩 증가. + 주소값도 출력
 
-item = input("원하는 과일을 입력하세요: ")
-
+# item = input("원하는 과일을 입력하세요: ")
+#
 fruits = LinkedList()
 fruits.append("사과")
 fruits.append("앵두")
 fruits.append("배")
 fruits.append("포도")
-
-fruits.find(item)
+fruits.print()
+print(fruits.find("포"))
