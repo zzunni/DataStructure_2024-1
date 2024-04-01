@@ -48,19 +48,20 @@ class LinkedList:
       return -1
 
     #내가 만든 find 함수
-    # num = 1
-    # curNode = self.root
-    # while curNode.link != None:
-
-    #   if curNode.item == item:
-    #     print(curNode.link)
-    #     print(num)
-    #     break
-    #   else:
-    #     curNode = curNode.link
-    #     num += 1
-
-    # curNode.link = Node(item)
+  # def find(self, item):
+  #   num = 1
+  #   curNode = self.root
+  #   while curNode.link != None:
+  #
+  #     if curNode.item == item:
+  #       print(curNode.link)
+  #       print(num)
+  #       break
+  #     else:
+  #       curNode = curNode.link
+  #       num += 1
+  #
+  #   curNode.link = Node(item)
 
   def insert(self, k, item):
 
@@ -94,10 +95,10 @@ class LinkedList:
   # def delete(self,item):
   #   k = fruits.find(item) #원하는 아이템이 몇번째 노드에 있는지 찾는 함수.
   #   curNode = self.root
-
+  #
   #   for i in range(k): #k-1번째 노드까지 이동.
   #     curNode = curNode.link
-
+  #
   #   if curNode.link.link == None:
   #     curNode.link = None
   #   else:
