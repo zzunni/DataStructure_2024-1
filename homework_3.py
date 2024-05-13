@@ -25,10 +25,9 @@ class SparseMatrix:
       for i in range(1, a.m + 1):    #a행렬 b행렬 1:1 대응시키면서 찾는것.
         for j in range(1, b.n + 1):
           sum = 0
-          for k in range(1, a.n + 1):
-            # sum += new_A[i][k] * new_B[k][j]
-            sum += a.peek(i, k) * b.peek(k, j)
-          if sum != 0:
+          for k in range(1, a.n + 1):    # 행렬 a의 각 열 또는 행렬 b의 각 행 요소에 대해
+            sum += a.peek(i, k) * b.peek(k, j) # 행렬 곱셈의 핵심: 각 요소의 곱을 누적하여 합을 계산
+          if sum != 0:     # 계산된 합이 0이 아니면 결과 행렬에 추가
             c.append(i,j,sum)
 
       return c
