@@ -18,6 +18,30 @@ class BinaryTree:
         # 트리의 초기화를 담당하는 생성자 메서드
         self.root = root  # 트리의 루트 노드
 
+    def preOrder(self, n):
+        # 전위 순회 메서드
+        print(n.item, ' ', end=' ')  # 현재 노드를 먼저 방문
+        if n.left:
+            self.preOrder(n.left)  # 왼쪽 자식을 재귀적으로 방문
+        if n.right:
+            self.preOrder(n.right)  # 오른쪽 자식을 재귀적으로 방문
+
+    def inOrder(self, n):
+        # 중위 순회 메서드
+        if n.left:
+            self.inOrder(n.left)  # 왼쪽 자식을 먼저 재귀적으로 방문
+        print(n.item, ' ', end=' ')  # 현재 노드를 방문
+        if n.right:
+            self.inOrder(n.right)  # 오른쪽 자식을 재귀적으로 방문
+
+    def postOrder(self, n):
+        # 후위 순회 메서드
+        if n.left:
+            self.postOrder(n.left)  # 왼쪽 자식을 먼저 재귀적으로 방문
+        if n.right:
+            self.postOrder(n.right)  # 오른쪽 자식을 재귀적으로 방문
+        print(n.item, ' ', end=' ')  # 현재 노드를 마지막에 방문
+
 # 노드들을 생성하고 각 노드에 값을 할당
 a = BNode('A')
 b = BNode('B')
@@ -30,20 +54,30 @@ h = BNode('H')
 i = BNode('I')
 j = BNode('J')
 k = BNode('K')
-l = BNode('L')
 
 # 각 노드를 트리에 연결하여 구조를 형성
-a.setLeft(b)  # A의 왼쪽 자식으로 B를 설정
-a.setRight(c)  # A의 오른쪽 자식으로 C를 설정
-b.setLeft(d)  # B의 왼쪽 자식으로 D를 설정
-b.setRight(e)  # B의 오른쪽 자식으로 E를 설정
-c.setLeft(f)  # C의 왼쪽 자식으로 F를 설정
-c.setRight(g)  # C의 오른쪽 자식으로 G를 설정
-d.setLeft(h)  # D의 왼쪽 자식으로 H를 설정
-d.setRight(i)  # D의 오른쪽 자식으로 I를 설정
-e.setLeft(j)  # E의 왼쪽 자식으로 J를 설정
-e.setRight(k)  # E의 오른쪽 자식으로 K를 설정
-f.setLeft(l)  # F의 왼쪽 자식으로 L을 설정
+a.setLeft(b)
+a.setRight(c)
+b.setLeft(d)
+b.setRight(e)
+c.setLeft(f)
+c.setRight(g)
+d.setLeft(h)
+e.setLeft(i)
+e.setRight(j)
+g.setRight(k)
 
 # 트리를 생성하고 루트 노드를 A로 설정
-t = BinaryTree(a)
+bt = BinaryTree(a)
+
+# 전위 순회를 실행하고 결과를 출력
+bt.preOrder(a)
+print()  # 결과를 구분하기 위해 줄 바꿈
+
+# 중위 순회를 실행하고 결과를 출력
+bt.inOrder(a)
+print()  # 결과를 구분하기 위해 줄 바꿈
+
+# 후위 순회를 실행하고 결과를 출력
+bt.postOrder(a)
+print()  # 결과를 구분하기 위해 줄 바꿈
