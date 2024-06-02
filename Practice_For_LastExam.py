@@ -1,44 +1,49 @@
+class BNode:
+    def __init__(self, item):
+        # 노드의 초기화를 담당하는 생성자 메서드
+        self.item = item  # 노드가 저장하는 값
+        self.left = None  # 왼쪽 자식 노드를 가리키는 포인터
+        self.right = None  # 오른쪽 자식 노드를 가리키는 포인터
+
+    def setLeft(self, node):
+        # 왼쪽 자식 노드를 설정하는 메서드
+        self.left = node
+
+    def setRight(self, node):
+        # 오른쪽 자식 노드를 설정하는 메서드
+        self.right = node
+
 class BinaryTree:
-    def __init__(self):
+    def __init__(self, root):
         # 트리의 초기화를 담당하는 생성자 메서드
-        self.t = [None]  # 트리를 나타내는 배열. 인덱스 0은 사용하지 않으므로 None으로 초기화
-        self.size = len(self.t)  # 트리의 현재 크기
+        self.root = root  # 트리의 루트 노드
 
-    def append(self, item):
-        # 트리에 새로운 요소를 추가하는 메서드
-        self.t.append(item)  # 배열의 끝에 새로운 요소를 추가
-        self.size += 1  # 트리의 크기를 1 증가
+# 노드들을 생성하고 각 노드에 값을 할당
+a = BNode('A')
+b = BNode('B')
+c = BNode('C')
+d = BNode('D')
+e = BNode('E')
+f = BNode('F')
+g = BNode('G')
+h = BNode('H')
+i = BNode('I')
+j = BNode('J')
+k = BNode('K')
+l = BNode('L')
 
-    def getChild(self, item):
-        # 특정 요소의 자식을 반환하는 메서드
-        idx = self.t.index(item)  # 주어진 요소의 인덱스를 찾음
-        leftChildIdx = idx * 2  # 왼쪽 자식의 인덱스 계산
-        rightChildIdx = leftChildIdx + 1  # 오른쪽 자식의 인덱스 계산
-        if leftChildIdx >= self.size:
-            # 왼쪽 자식의 인덱스가 트리의 크기보다 크거나 같으면 왼쪽 자식 없음
-            leftChildIdx = None
-            rightChildIdx = None  # 오른쪽 자식도 없음 (왼쪽 자식이 없으면 오른쪽 자식도 있을 수 없음)
-        elif rightChildIdx >= self.size:
-            # 오른쪽 자식의 인덱스가 트리의 크기보다 크거나 같으면 오른쪽 자식 없음
-            rightChildIdx = None
-        return self.t[leftChildIdx], self.t[rightChildIdx]  # 왼쪽 자식과 오른쪽 자식을 반환
+# 각 노드를 트리에 연결하여 구조를 형성
+a.setLeft(b)  # A의 왼쪽 자식으로 B를 설정
+a.setRight(c)  # A의 오른쪽 자식으로 C를 설정
+b.setLeft(d)  # B의 왼쪽 자식으로 D를 설정
+b.setRight(e)  # B의 오른쪽 자식으로 E를 설정
+c.setLeft(f)  # C의 왼쪽 자식으로 F를 설정
+c.setRight(g)  # C의 오른쪽 자식으로 G를 설정
+d.setLeft(h)  # D의 왼쪽 자식으로 H를 설정
+d.setRight(i)  # D의 오른쪽 자식으로 I를 설정
+e.setLeft(j)  # E의 왼쪽 자식으로 J를 설정
+e.setRight(k)  # E의 오른쪽 자식으로 K를 설정
+f.setLeft(l)  # F의 왼쪽 자식으로 L을 설정
 
-    def getParent(self, item):
-        # 특정 요소의 부모를 반환하는 메서드
-        if item in self.t:
-            idx = self.t.index(item)  # 주어진 요소의 인덱스를 찾음
-            return self.t[idx // 2]  # 부모의 인덱스는 현재 인덱스의 절반 값
-        else:
-            # 주어진 요소가 트리에 없으면 경고 메시지 출력
-            print("item not found")
-
-tree = BinaryTree()  # 이진 트리 객체 생성
-for i in range(12):
-    # A부터 L까지의 알파벳을 트리에 추가
-    tree.append(chr(65 + i))
-
-# 'D'의 자식 노드를 출력
-print(tree.getChild('D'))
-
-# 'A'의 부모 노드를 출력
-print(tree.getParent('A'))
+# 트리를 생성하고 루트 노드를 A로 설정
+t = BinaryTree(a)
