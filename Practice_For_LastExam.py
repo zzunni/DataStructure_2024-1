@@ -1,63 +1,59 @@
-class BinaryTree:
-    def __init__(self, root):
-        # 트리의 초기화를 담당하는 생성자 메서드
-        self.root = root  # 트리의 루트 노드
+class MaxHeap:
+    def __init__(self):
+        # 힙을 나타내는 리스트를 초기화합니다. 첫 번째 요소는 사용하지 않으므로 None으로 설정합니다.
+        self.x = [None]
 
-    def preOrder(self, n):
-        # 전위 순회 메서드
-        print(n.item, ' ', end=' ')  # 현재 노드를 먼저 방문
-        if n.left:
-            self.preOrder(n.left)  # 왼쪽 자식을 재귀적으로 방문
-        if n.right:
-            self.preOrder(n.right)  # 오른쪽 자식을 재귀적으로 방문
+    def _exchange(self, i, j):
+        # 히든 메서드로, x[i]가 x[j]보다 작을 경우 두 값을 교환합니다.
+        if self.x[i] < self.x[j]:
+            self.x[i], self.x[j] = self.x[j], self.x[i]
 
-    def inOrder(self, n):
-        # 중위 순회 메서드
-        if n.left:
-            self.inOrder(n.left)  # 왼쪽 자식을 먼저 재귀적으로 방문
-        print(n.item, ' ', end=' ')  # 현재 노드를 방문
-        if n.right:
-            self.inOrder(n.right)  # 오른쪽 자식을 재귀적으로 방문
+    def push(self, item):
+        # 힙에 새로운 요소를 추가하는 메서드입니다.
+        self.x.append(item)  # 새로운 요소를 리스트의 마지막에 추가합니다.
+        cIndex = len(self.x) - 1  # 새로 추가된 요소의 인덱스를 가져옵니다.
+        pIndex = cIndex // 2  # 부모 노드의 인덱스를 계산합니다.
+        while pIndex >= 1: # 부모 노드의 인덱스가 1 이상일 때까지 반복
+            self._exchange(pIndex, cIndex)  # 부모와 자식의 위치를 교환하여 최대 힙 속성을 유지합니다.
+            cIndex = pIndex
+            pIndex = cIndex // 2
 
-    def postOrder(self, n):
-        # 후위 순회 메서드
-        if n.left:
-            self.postOrder(n.left)  # 왼쪽 자식을 먼저 재귀적으로 방문
-        if n.right:
-            self.postOrder(n.right)  # 오른쪽 자식을 재귀적으로 방문
-        print(n.item, ' ', end=' ')  # 현재 노드를 마지막에 방문
+    def pop(self):
+        # 힙에서 최대 값을 제거하고 반환하는 메서드입니다.
+        item = self.x[1]  # 루트 요소(최대값)를 저장합니다.
+        n = len(self.x) - 1  # 마지막 요소의 인덱스를 계산합니다.
+        self.x[1], self.x[n] = self.x[n], self.x[1]  # 루트 요소와 마지막 요소를 교환합니다.
+        self.x = self.x[:-1]  # 마지막 요소를 제거합니다.
+        self.heapify()  # 최대 힙 속성을 유지하기 위해 힙을 재정렬합니다.
+        return item
 
-    def height(self, n):
-        # 트리의 높이를 계산하는 메서드
-        if n is None:
-            return 0  # 터미널 노드를 만나면 0을 리턴
+    def _child(self, pIndex):
+        # 부모 노드의 인덱스를 입력받아 자식 노드의 인덱스를 반환하는 히든 메서드입니다.
+        n = len(self.x) # 리스트에 있는 요소의 개수
+        leftIndex = pIndex * 2  # 왼쪽 자식의 인덱스를 계산합니다.
+        rightIndex = pIndex * 2 + 1  # 오른쪽 자식의 인덱스를 계산합니다.
+        if rightIndex <= n - 1:
+            return leftIndex, rightIndex  # 두 자식이 모두 있는 경우
+        elif leftIndex == n - 1:
+            return leftIndex, None  # 왼쪽 자식만 있는 경우
         else:
-            lheight = self.height(n.left)  # 왼쪽 서브트리의 높이 계산
-            rheight = self.height(n.right)  # 오른쪽 서브트리의 높이 계산
-            # 왼쪽과 오른쪽 서브트리 중 더 큰 높이에 1을 더한 값이 현재 노드의 높이
-            if lheight > rheight:
-                return lheight + 1
-            else:
-                return rheight + 1
-   def levelOrder(self):
-        # 루트 노드의 높이를 구한 다음 높이가 1부터 h까지 순차적으로 노드를 구한다.
-        h = self.height(self.root)
-        for i in range(1, h + 1): # 높이가 1, 2, ... , h 까지 순차적으로 프린트한다. 루트의 높이는 1이고, 바로 밑은 높이가 2다.
-            self._levelOrder(self.root, i)
-            print()
+            return None, None  # 자식이 없는 경우
 
-    # 특정 노드의 레벨에 해당하는 노드를 프린트한다.
-    # 예: 루트에서 레벨 2를 프린트한다면 레벨을 한 단계 낮춰 루트 좌우로 이동한다.
-    #     이후, 레벨 1이 되므로 루트의 좌, 우 노드가 프린트 된다.
-    #     레벨 3을 프린트 한다면 레벨을 한 단계 낮춘 상태 즉 루트 바로 밑을 루트로 보고 재귀적으로 레벨 2를 수행하는 것이다.
+    def heapify(self):
+        # 힙 속성을 유지하도록 재정렬하는 메서드입니다.
+        pIndex = 1  # 시작 인덱스는 루트 노드의 인덱스입니다.
+        lastIndex = len(self.x) - 1  # 마지막 인덱스를 계산합니다.
+        while pIndex < len(self.x):  # 루트부터 마지막 노드까지 반복합니다.
+            left, right = self._child(pIndex)  # 현재 노드의 자식 노드 인덱스를 가져옵니다.
+            if left != None and right == None:
+                self._exchange(pIndex, left)  # 왼쪽 자식만 있는 경우
+            elif left != None and right != None:
+                if self.x[left] < self.x[right]:
+                    self._exchange(pIndex, right)  # 오른쪽 자식이 더 큰 경우
+                else:
+                    self._exchange(pIndex, left)  # 왼쪽 자식이 더 큰 경우
+            pIndex += 1  # 다음 노드로 이동합니다.
 
-    def _levelOrder(self, node, level):
-        if node is None:
-            return
-        # 특정 노드의 level == 1일 때, 특정 노드 값을 인쇄한다.
-        if level == 1:
-            print(node.item, end = " ")
-        # level > 1 이면 특정 노드의 좌, 우측으로 이동해서 레벨을 다운시켜 진행한다.
-        elif level > 1:
-            self._levelOrder(node.left, level - 1)
-            self._levelOrder(node.right, level - 1)
+    def print(self):
+        # 힙을 출력하는 메서드입니다.
+        print(self.x)
